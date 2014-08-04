@@ -1,0 +1,164 @@
+#!/usr/bin/python
+# coding=utf8
+from datetime import datetime, timedelta
+import time
+from subprocess import call, Popen, PIPE
+import __main__, os, sys
+import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEBase import MIMEBase
+from email import Encoders
+import os
+from collections import namedtuple
+
+_ntuple_diskusage = namedtuple('usage', 'total used free')
+
+def disk_usage(path):
+    """Return disk usage statistics about the given path.
+
+    Returned valus is a named tuple with attributes 'total', 'used' and
+    'free', which are the amount of total, used and free space, in bytes.
+    """
+    st = os.statvfs(path)
+    free = st.f_bavail * st.f_frsize
+    total = st.f_blocks * st.f_frsize
+    used = (st.f_blocks - st.f_bfree) * st.f_frsize
+    return _ntuple_diskusage(total, used, free)
+
+
+def sendmail():
+	msg = MIMEMultipart()
+	msg['Subject'] = "backup estudio"
+	msg['From'] = "root@estudio"
+	msg['To'] = "pablo@econo.unlp.edu.ar"
+
+	part = MIMEBase("application","octet-stream")
+	part.set_payload(open("/backups/backup.tar.gz","rb").read())
+	Encoders.encode_base64(part)
+	part.add_header('Content-Disposition','attachment; filename="backup.tar.gz"')
+
+	msg.attach(part)
+	server = smtplib.SMTP("127.0.0.1")
+	server.sendmail("root@estudio","pablo@econo.unlp.edu.ar",msg.as_string())
+
+
+def returnCommandInstances(command):
+	c = "ps -ef | grep -v grep | grep " + command + " | wc -l"
+        ps = Popen(c,shell=True,stdout=PIPE)
+        output = ps.stdout.read()
+        ps.stdout.close()
+        ps.wait()
+        return int(output)
+
+
+def isOnlyInstance():
+	if (returnCommandInstances(__main__.__file__) <= 1):
+		return True
+	else:
+		return False
+
+
+
+# si ya existe el comando ejecutandose salgo.
+#print "Chequeando ser la unica instancia del programa"
+if not isOnlyInstance():
+	print "saliendo ya que ya existe una instancia corriendo"
+	sys.exit(0)
+
+
+## creo un archivo bacío asi no tira error el script
+call("/usr/bin/touch /tmp/backup.log",shell=True)
+
+
+# elimino el archivo mas viejo de backup que exista si no tengo espacio suficiente. (estimada 40gb)
+(total, used, free) = disk_usage('/backups')
+neededFree = 50 * 1024 * 1024 * 1024
+if free < neededFree:
+	minPath = ''
+	minPathDate = datetime.now()
+	for dirpath, dirnames, filenames in os.walk('/backups'):
+		for file in filenames:
+	      		curpath = os.path.join(dirpath, file)
+			actualPathDate = datetime.fromtimestamp(os.path.getmtime(curpath))
+			if minPathDate > actualPathDate:
+				minPathDate = actualPathDate
+				minPath = curpath
+		if minPath != '':
+			print minPath
+			os.remove(minPath)
+
+
+## chequeo el horario
+now = datetime.now()
+tomorrow = now + timedelta(days = 1)
+#end = datetime(tomorrow.year,tomorrow.month,tomorrow.day,5,0,0)
+end = datetime(now.year,now.month,now.day,5,0,0)
+init = datetime(now.year,now.month,now.day,2,0,0)
+
+#print "chequeando horario para backup"
+if (init <= now <= end):
+
+	## creo un archivo bacío asi no tira error el script
+	call("/usr/bin/touch /tmp/backup.log",shell=True)
+
+
+	# elimino el archivo mas viejo de backup que exista si no tengo espacio suficiente. (estimada 40gb)
+	(total, used, free) = disk_usage('/backups')
+	neededFree = 50 * 1024 * 1024 * 1024
+	if free < neededFree:
+        	minPath = ''
+	        minPathDate = datetime.now()
+        	for dirpath, dirnames, filenames in os.walk('/backups'):
+                	for file in filenames:
+                        	curpath = os.path.join(dirpath, file)
+	                        actualPathDate = datetime.fromtimestamp(os.path.getmtime(curpath))
+        	                if minPathDate > actualPathDate:
+                	                minPathDate = actualPathDate
+                        	        minPath = curpath
+	                if minPath != '':
+        	                print minPath
+                	        os.remove(minPath)
+
+
+
+	## mando a apagar la máquina virtual
+	print "chequeando vm a ver si esta prendida"
+	while (returnCommandInstances("winxp") > 0):
+		print "apagando vms del virtualbox"
+		command = "/bin/su usuario -c '/home/usuario/apagarVms.sh'"
+		rc = call(command,shell=True)
+		time.sleep(120)
+
+
+	# ejecuto el backup
+
+	# hago el backup
+	# rsync --log-file=/tmp/backup.log -avvz /home root@163.10.199.237:/root/datos-estudio
+##        print "haciendo el backup local"
+##        rc = call("rsync --log-file=/tmp/backup.log -a --exclude='/home/usuario/.gvfs' /home /home-backup",shell=True)
+
+	db = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
+	rc = call("tar --exclude=/home/vms --exclude=/home/backups -cvzf /backups/datos-" + db + ".tar.gz /home",shell=True)
+	rc = call("tar -cvzf /backups/vms-" + db + ".tar.gz /home/vms",shell=True)
+#	rc = call("tar -cvzf /backups/datos-" + db + ".tar.gz /home",shell=True)
+
+	print "haciendo el backup"
+	rc = call("rsync --log-file=/tmp/backup.log -az --exclude='/home/usuario/.gvfs' /home root@163.10.199.237:/root/datos-estudio",shell=True)
+
+
+	# me mando el mail con el log.
+	print "enviando mail con el log"
+	#command = "cat /tmp/backup.log | /usr/bin/mail -s backup-estudio pablo@econo.unlp.edu.ar"
+	command = "/bin/tar -cvzf /tmp/backup.tar.gz /tmp/backup.log"
+	call(command,shell=True)
+	sendmail()
+
+	# doy algun tiempo
+	print "esperando un tiempo"
+	time.sleep(240)
+
+	# apago la pc
+#	print "apagando la pc"
+#	command = "/sbin/shutdown now -h -P"
+#	call(command,shell=True)
+
