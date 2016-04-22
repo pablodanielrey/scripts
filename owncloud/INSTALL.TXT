@@ -1,0 +1,20 @@
+para instalar la libreria que usa el script, cliente de owncloud se debe:
+
+sudo pip2 install pyocclient
+
+en el caso de tener problemas con requests que esta desactualizada en algunas dists de linux.
+desinstalar todo e instalarlo mediante.
+
+sudo easy_install-2.7 pip
+sudo pip2 install pyocclient
+
+en el caso de que tire error la librería esta desactualizada asi que hay que reemplazarla a mano
+
+cd /usr/local/lib/python2.7/dist-packages
+sudo rm -R owncloud
+sudo rm -R pyocclient-0.1.dist-info
+
+sudo git clone http://github.com/owncloud/pyocclient
+ln -s pyocclient/owncloud
+
+o ajustar versiones acorde al intérprete de python que se use, etc.
