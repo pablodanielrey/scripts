@@ -11,10 +11,10 @@
 
 from setuptools import setup, find_packages
 
-setup(name='users',
+setup(name='scripts',
           version='0.1.0.dev0',
           description='Proyecto que maneja el equema de usuarios de los sistemas',
-          url='https://github.com/pablodanielrey/users',
+          url='https://github.com/pablodanielrey/scripts',
           author='Desarrollo DiTeSi, FCE',
           author_email='ditesi@econo.unlp.edu.ar',
           classifiers=[
@@ -39,9 +39,9 @@ setup(name='users',
                             'pyjwt'],
           entry_points={
             'console_scripts': [
-                'wamp=users.api.wamp.main:main',
-                'rest=users.api.rest.main:main',
-                'flask=users.web.main:main'
+                'wamp=scripts.api.wamp.main:main',
+                'rest=scripts.api.rest.main:main',
+                'flask=scripts.web.main:main'
             ]
           }
 

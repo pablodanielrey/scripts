@@ -1,5 +1,0 @@
-[console_scripts]
-flask = users.web.main:main
-rest = users.api.rest.main:main
-wamp = users.api.wamp.main:main
-

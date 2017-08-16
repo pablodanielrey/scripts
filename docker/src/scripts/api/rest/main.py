@@ -10,7 +10,7 @@ from dateutil import parser
 from rest_utils import register_encoder
 
 from . import reset
-from users.model import Session
+from scripts.model import Session
 
 app = Flask(__name__)
 register_encoder(app)
