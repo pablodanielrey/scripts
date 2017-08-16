@@ -1,0 +1,177 @@
+
+<div class="perfil {{estilo}} {{error.error}} {{error.codigo}}">
+
+
+    <div class='cambiar_clave'>
+    </div>
+
+    <!-- <div>ID</div> -->
+    <!-- <div>{{usuario.id}}</input></div> -->
+
+
+    <!-- estado EdicionPerfil --->
+
+    <div class="pantalla edicion_perfil">
+        <div>
+          <div class="titulo">PERFIL DE USUARIO {{usuario.id}}</div><hr>
+
+          <!-- <div>
+            <img src='http://127.0.0.1:9001/files/api/v1.0/archivo/496ff972-e834-46a6-9361-79b2e5c1bf85/contenido'></img>
+            <form>
+              <button ngf-select ng-model="picFile" accept="image/*">Select Picture</button>
+              <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
+                  <img-crop image="picFile  | ngfDataUrl" result-image="croppedDataUrl" ng-init="croppedDataUrl=''"></img-crop>
+              </div>
+              <div>
+                  <img ng-src="{{croppedDataUrl}}" />
+              </div>
+              <button ng-click="upload(croppedDataUrl, picFile.name)">Submit</button>
+            </form>
+          </div> -->
+
+          <div>
+            <div><b>Nombre</b></div>
+            <input ng-model='usuario.nombre' class="inputData form-control ng-pristine ng-valid ng-empty ng-touched"></input>
+          </div>
+          <div>
+            <div><b>Apellido</b></div>
+            <input ng-model='usuario.apellido' class="form-control ng-pristine ng-valid ng-empty ng-touched"></input>
+          </div>
+          <div>
+            <div><b>DNI</b></div>
+            <input ng-model='usuario.dni' readonly=true class="form-control ng-pristine ng-valid ng-empty ng-touched"></input>
+          </div>
+          <div>
+            <div><b>Legajo</b></div>
+            <input value='2806/4' readonly=true class="form-control ng-pristine ng-valid ng-empty ng-touched"></input>
+          </div>
+
+          <div>
+              <button ng-click='actualizarUsuario(usuario)' class="btn btn-primary">GUARDAR CAMBIOS</button>
+          </div>
+        </div>
+
+
+        <div class="contentMails">
+          <div class="titulo">CORREOS DE CONTACTO</div><hr>
+            <div><b>Correos</b></div>
+
+
+          <!-- CORREOS CONFIRMADOS -->
+
+
+          <div ng-repeat='m in correos'>
+              <div class="itemsMail">
+                <div class="mail">
+                    <div>{{m.email}} &nbsp;</div>
+                    <div class="statusMailConfirmed label label-default"> confirmado</div>
+                </div>
+                <!-- <span>{{m.id}}</span> --> <!-- <span>{{m.fecha_confirmado}}</span> --> <!-- <span>{{m.hash}}</span> -->
+                <div ng-if='!esInstitucional(m)'>
+                  <span><button class="btn btnTrash" ng-click='eliminarCorreo(m)'><i class="fa fa-trash-o" aria-hidden="true"></i></button></span>
+                </div>
+              </div>
+          </div>
+
+
+          <!-- CORREOS SIN CONFIRMAR -->
+
+
+          <div class="" ng-repeat='m in correos'>
+              <div class="itemsMail">
+                <div class="mail">
+                    <div>{{m.email}} &nbsp;</div>
+                    <div class="statusMailConfirmed label label-danger" ng-if='m.hash == null'>sin confirmar</div>
+                    <div class="statusMailConfirmed label label-danger" ng-if='m.hash != null && m.fecha_confirmado == null'>sin confirmar</div>
+                </div>
+                <!-- <span>{{m.id}}</span> --> <!-- <span>{{m.fecha_confirmado}}</span> --> <!-- <span>{{m.hash}}</span> -->
+                <div class="actions" ng-if='!esInstitucional(m)'>
+                  <div><button class="btn btnTrash" ng-click='enviarConfirmarCorreo(m)'>reenviar correo</button></div>
+                  <div><button class="btn btnTrash" ng-click='eliminarCorreo(m)'><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>
+                </div>
+              </div>
+          </div>
+
+
+          <!-- CORREO ENVIADO, INTRODUCIR CODIGO -->
+
+
+          <div class="" ng-repeat='m in correos'>
+              <div class="itemsMail">
+                <div class="mail">
+                    <div>{{m.email}} &nbsp;</div>
+                    <div class="statusMailConfirmed label label-danger" ng-if='m.hash == null'>sin confirmar</div>
+                    <div class="statusMailConfirmed label label-danger" ng-if='m.hash != null && m.fecha_confirmado == null'>sin confirmar</div>
+                </div>
+                <!-- <span>{{m.id}}</span> --> <!-- <span>{{m.fecha_confirmado}}</span> --> <!-- <span>{{m.hash}}</span> -->
+                <div class="actions" ng-if='!esInstitucional(m)'>
+                  <div><button class="btn btnTrash" ng-click='enviarConfirmarCorreo(m)'>reenviar correo</button></div>
+                  <div><button class="btn btnTrash" ng-click='eliminarCorreo(m)'><i class="fa fa-trash-o" aria-hidden="true"></i></button></div>
+                </div>
+              </div>
+              <i class="flechaCode fa fa-sort-asc fa-2x" aria-hidden="true"></i>
+
+              <p class="contentCode" ng-if='m.hash != null && m.fecha_confirmado == null'>
+                <span>
+                  Se ha enviado un correo a su casilla con un código de verificación. <b>¡Revise el correo!</b><br>
+                  <input type=text class="inputCode" ng-model='m.codigo' placeholder="INGRESE CÓDIGO"></input>
+                  <button class="btn btnConformar" ng-click='confirmarCorreo(m)'>Confirmar</button>
+                </span>
+              </p>
+          </div>
+
+
+          <!-- AGREGAR CORREO -->
+
+          <div>
+            <div><b>Nuevo Correo</b></div>
+          <!-- <input type='email' ng-model='emailAAgregar'></input>
+            <button class="btn btn-success" ng-click='agregarCorreo()'>AGREGAR CORREO</button> -->
+
+            <form class="form-inline">
+                <div class="form-group">
+                  <input type="email" class="form-control" id="exampleInputEmail2" ng-model='emailAAgregar' placeholder="nombre@dominio.com">
+                </div>
+                <button type="submit" class="btn btn-success" ng-click='agregarCorreo()'>AGREGAR CORREO</button>
+              </form>
+          </div>
+
+        <!-- pantallas intermedias -->
+
+        </div>
+    </div>
+
+
+    <div class='pantalla_error'>
+      <div class='error_actualizando_usuario'>
+          Encontramos un error actualizando los datos del usuario.
+          <button ng-click='cerrarErrorUsuario()'>Aceptar</button>
+      </div>
+
+      <div class='error_correo'>
+          Encontramos un error
+          <button ng-click='limpiarError()'>Aceptar</button>
+      </div>
+
+      <div class='error_enviando_confirmacion'>
+          Se produjo un error cuando se trataba de contactar con el servidor de correo.
+          Por favor intente mas tarde.
+          <button ng-click='limpiarError()'>Aceptar</button>
+      </div>
+    </div>
+
+    <div class='pantalla_mensaje'>
+    </div>
+
+    <!-- pantalla cambiar clave ----->
+
+    <div class='pantalla cambio_clave'>
+
+    </div>
+
+    <div>
+    </div>
+
+    <!-- -->
+
+</div>
