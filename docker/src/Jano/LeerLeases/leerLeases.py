@@ -12,7 +12,9 @@ import re
 
 openLeases=open('dhcpd.leases','r')
 leases=openLeases.read()
+print ('??????')
+patronip=re.finditer(r"lease ([0-9.]+) ", leases)
+patronmac=re.finditer(r"{.*?hardware ethernet ([:a-f0-9]+);.*?}", leases)
 
-patron=re.compile(r"lease ([0-9.]+)", leases)
-
-print (patron.match(leases))
+for match in patronip:
+    print(match.group(1))
