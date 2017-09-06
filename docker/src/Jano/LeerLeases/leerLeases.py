@@ -1,20 +1,31 @@
 # -*- coding: utf-8 -*-
 
 import re
-
-""" FUNCIONA ESTE """
-#
-# patron = re.compile(r"lease ([0-9.]+) {.*?hardware ethernet ([:a-f0-9]+);.*?}", re.DOTALL)
-#
-# with open("dhcpd.leases") as f:
-#     for match in patron.finditer(f.read()):
-#         print(match.group(1), match.group(2))
-
+rep={}
 openLeases=open('dhcpd.leases','r')
-leases=openLeases.read()
-print ('??????')
-patronip=re.finditer(r"lease ([0-9.]+) ", leases)
-patronmac=re.finditer(r"{.*?hardware ethernet ([:a-f0-9]+);.*?}", leases)
+try:
 
-for match in patronip:
-    print(match.group(1))
+    leases=openLeases.read()
+    patronip=re.finditer("lease ([0-9\.]+) .*?hardware ethernet ([:a-f0-9]+)", leases, re.S)
+finally:
+    openLeases.close()
+
+cant=0
+for search in patronip:
+    print(search.group(1),'   >>>>>>>>>>>>>>  ', search.group(2))
+    cant=cant +1
+
+print (cant)
+
+
+
+
+#     patronip=re.finditer("(client-hostname \"\w*.?)", leases, re.S)
+#     # patronmac=re.finditer("hardware ethernet ([:a-f0-9]+) ", leases)
+# finally:
+#     openLeases.close()
+#     cant=0
+#     for search in patronip:
+#         print(search.group(1))
+#         cant=cant +1
+#     print (cant)
