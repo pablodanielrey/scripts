@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import re
-rep={}
 openLeases=open('dhcpd.leases','r')
 try:
-
     leases=openLeases.read()
-    patronip=re.finditer("lease ([0-9\.]+) .*?hardware ethernet ([:a-f0-9]+)", leases, re.S)
+    patronip=re.finditer("lease ([0-9\.]+) .*?hardware ethernet (.*?);", leases, re.S)
+    #patronip=re.finditer("lease ([0-9\.]+) .*?hardware ethernet ([:a-f0-9]+)", leases, re.S)
+    # patronip=re.finditer("(lease ([0-9\.]+) .*?})", leases, re.S)
 finally:
     openLeases.close()
 
