@@ -12,6 +12,8 @@ leerArchivoUA=csv.reader(archivoUA)
 archivoUsuarios=open('usuarios.csv','r')
 leerU=csv.reader(archivoUsuarios)
 
+cuentasGoogle = open("cuentasGoogle.txt", "w")
+
 cantUsuarios=0
 
 for linea in leerArchivoUA:
@@ -27,8 +29,11 @@ for linea in leerU:
         if 'econo.unlp.edu.ar' in correo:
             direcciones.append(correo)
             usuariosGoogle[dni]=direcciones
+            cuentasGoogle.write(correo)
+            cuentasGoogle.write('\n')
             cantUsuarios +=1
 
 
+sorted(usuariosGoogle.keys())
 pprint.pprint(usuariosGoogle)
 print(cantUsuarios)
