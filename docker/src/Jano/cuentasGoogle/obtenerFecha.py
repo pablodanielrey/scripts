@@ -12,7 +12,7 @@ def escribirCG(archivo, correo): #escribe el archivo cuentasGoogle.txt final
     archivo.write('\n')
     return correo
 
-def leerArchivos(leerArchivoUA, leerU):
+def leerArchivos(leerArchivoUA, leerU, ultimoAcceso):
     cantDirecciones=0
     for linea in leerArchivoUA:
         dni=linea[0].replace('@econo.unlp.edu.ar','')
@@ -39,7 +39,7 @@ try:
         leerU=csv.reader(archivoUsuarios)
         cuentasGoogle = open("cuentasGoogle.txt", "w")
         try:
-            cantDirecciones = leerArchivos(leerArchivoUA, leerU)
+            cantDirecciones = leerArchivos(leerArchivoUA, leerU, ultimoAcceso)
 
             for dni, correos in usuariosGoogle.items():
                 for correo in correos:
