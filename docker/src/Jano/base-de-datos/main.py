@@ -1,6 +1,9 @@
 
-import psycopg2
+import sys
+import logging
 import os
+import psycopg2
+import psycopg2.extras
 
 if __name__ == '__main__':
 
