@@ -12,12 +12,14 @@ if __name__ == '__main__':
     try:
         cur = con.cursor()
         try:
-            cur.execute('select id, name, lastname from profile.users order by name, lastname limit 10')
+            for i in range(100):
+                cur.execute('insert into p (id, nombre) values (%s,%s)', ('walter','puto'))
+
+            cur.execute('select id, nombre from p')
             for row in cur:
                 id = row[0]
                 nombre = row[1]
-                apellido = row[2]
-                print(id + ' ' + nombre + ' ' + apellido)
+                print(id + ' ' + nombre)
 
         finally:
             cur.close()
