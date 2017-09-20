@@ -1,0 +1,169 @@
+
+
+  location Actual {
+          return 301 Nueva;
+  }
+
+  location http://www.depeco.econo.unlp.edu.ar/cedlas/ {
+          return 301 /wp/;
+  }
+
+  location  {
+          return 301 /wp/estadisticas/sedlac/;
+  }
+
+  location /esp/documentos-de-trabajo.php {
+          return 301 /wp/publicaciones/documentos-de-trabajo/;
+  }
+
+  location /esp/pantalla-adicional.php?idP=6 {
+          return 301 /wp/publicaciones/informes-breves/;
+  }
+
+  location /esp/cursos.php {
+          return 301 /wp/actividades/cursos/;
+  }
+
+  location /esp/premios-y-distinciones.php {
+          return 301 /wp/institucional/premiosydistinciones/;
+  }
+
+  location /esp/conferencias.php {
+          return 301 /wp/actividades/conferencias/;
+  }
+
+  location /esp/otras-publicaciones.php {
+          return 301 /wp/publicaciones/;
+  }
+
+  location /esp/actividades-en-curso.php {
+          return 301 /wp/investigacion/proyectos-de-investigacion/;
+  }
+
+  location /esp/actividades-realizadas.php {
+          return 301 /wp/investigacion/proyectos-de-investigacion/;
+  }
+
+  location /esp/quienes-somos.php {
+          return 301 /wp/institucional/equipo/;
+  }
+
+  location /esp/estadisticas.php {
+          return 301 /wp/estadisticas/sedlac/estadisticas/;
+  }
+
+  location /esp/metodologia.php {
+          return 301 /wp/estadisticas/sedlac/metodologia-sedlac/;
+  }
+
+  location /esp/metodologia_faqs.php {
+          return 301 /wp/estadisticas/sedlac/metodologia-sedlac/;
+  }
+
+  location /esp/institucional.php {
+          return 301 /wp/estadisticas/sedlac/la-base-sedlac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=15 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=13 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=17 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=18 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/el-equipo.php {
+          return 301 /wp/estadisticas/lablac/la-base-lablac/;
+  }
+
+  location /esp/pantalla.php?seccion=estudios_especiales&idP=65 {
+          return 301 /wp/investigacion/proyectos-de-investigacion/la-desigualdad-en-america-latina-y-el-caribe-lac-flagship-report-2003/;
+  }
+
+  location http://www.depeco.econo.unlp.edu.ar/cedlas/libro-gcse-1/ {
+          return 301 /wp/publicaciones/libros/;
+  }
+
+  location /esp/pantalla.php?seccion=estudios_especiales&idP=28 {
+          return 301 /wp/investigacion/proyectos-de-investigacion/empleo-femenino-urbano-en-argentina/;
+  }
+
+  location /eng/index.php {
+          return 301 /wp/en/estadisticas/lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=28 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=32 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=34 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=35 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/methodology.php {
+          return 301 /wp/en/estadisticas/lablac/metodologia-lablac/;
+  }
+
+  location /eng/methodology_faqs.php {
+          return 301 /wp/en/estadisticas/lablac/metodologia-lablac/;
+  }
+
+  location /eng/the-team.php {
+          return 301 /wp/en/estadisticas/lablac/la-base-lablac/;
+  }
+
+  location /eng/institutional.php {
+          return 301 /wp/en/estadisticas/lablac/la-base-lablac/;
+  }
+
+  location /eng/statistics.php {
+          return 301 /wp/en/estadisticas/sedlac/estadisticas/;
+  }
+
+  location /eng/awards-and-distinctions.php {
+          return 301 /wp/en/institucional/premiosydistinciones/;
+  }
+
+  location /eng/current-projects.php {
+          return 301 /wp/en/investigacion/proyectos-de-investigacion/;
+  }
+
+  location /eng/past-projects.php {
+          return 301 /wp/en/investigacion/proyectos-de-investigacion/;
+  }
+
+  location /eng/working-papers.php {
+          return 301 /wp/en/publicaciones/documentos-de-trabajo/;
+  }
+
+  location /eng/other-publications.php {
+          return 301 /wp/en/publicaciones/;
+  }
+
+  location /eng/courses.php {
+          return 301 /wp/en/actividades/cursos/;
+  }
+
+  location /eng/conferences.php {
+          return 301 /wp/en/actividades/conferencias/;
+  }
+
+  location /eng/additional-screen.php?idP=7 {
+          return 301 /wp/en/publicaciones/informes-breves/;
+  }

@@ -36,7 +36,8 @@ setup(name='scripts',
                             'SQLAlchemy',
                             'google-api-python-client',
                             'httplib2',
-                            'pyjwt'],
+                            'pyjwt',
+                            'jinja2'],
           entry_points={
             'console_scripts': [
                 'wamp=scripts.api.wamp.main:main',
