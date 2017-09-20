@@ -1,0 +1,6 @@
+
+{% for desde, hacia in redirecciones %}
+  location {{desde}} {
+          return 301 {{hacia}};
+  }
+{% endfor %}
