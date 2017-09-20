@@ -15,10 +15,10 @@ if __name__ == '__main__':
     try:
         cur = con.cursor()
         try:
-            for i in range(100):
-                cur.execute('insert into p (id, nombre) values (%s,%s)', ('walter','puto'))
+            # for i in range(5):
+            #     cur.execute('insert into usuarios (nombre, clave) values (%s,%s)', ('emagay','puto'))
 
-            cur.execute('select id, nombre from p')
+            cur.execute('select nombre, clave from usuarios')
             for row in cur:
                 id = row[0]
                 nombre = row[1]
