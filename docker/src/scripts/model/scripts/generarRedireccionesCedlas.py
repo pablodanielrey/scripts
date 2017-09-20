@@ -11,15 +11,35 @@ def escribir_redirecciones(datos, archivo):
          f.write(outp)
 
 def obtener_redirecciones(archivo):
-    redirecciones = []
+    cedlas = []
+    sedlac = []
+    lablac = []
     with open(archivo,'r') as f:
         reader = csv.reader(f, delimiter=',')
         for fila in reader:
-            de = fila[0].replace('http://www.cedlas.econo.unlp.edu.ar','').replace('http://cedlas.econo.unlp.edu.ar','').replace('http://sedlac.econo.unlp.edu.ar','').replace('http://lablac.econo.unlp.edu.ar','')
-            hacia = fila[1].replace('http://www.cedlas.econo.unlp.edu.ar','').replace('http://cedlas.econo.unlp.edu.ar','').replace('http://sedlac.econo.unlp.edu.ar','').replace('http://lablac.econo.unlp.edu.ar','')
-            if de not in [d for d,h in redirecciones]:
-                redirecciones.append((de, hacia))
-    return redirecciones
+            hacia = fila[1].replace('http://www.cedlas.econo.unlp.edu.ar','')\
+                            .replace('http://cedlas.econo.unlp.edu.ar','')\
+                            .replace('http://sedlac.econo.unlp.edu.ar','')\
+                            .replace('http://lablac.econo.unlp.edu.ar','')\
+
+            de = fila[0]
+            if 'cedlas.econo.unlp.edu.ar' in de:
+                de = de.replace('http://www.cedlas.econo.unlp.edu.ar','').replace('http://cedlas.econo.unlp.edu.ar','')
+                if de not in [d for d,h in cedlas]:
+                    cedlas.append((de, hacia))
+
+            if 'lablac.econo.unlp.edu.ar' in de:
+                de = de.replace('http://lablac.econo.unlp.edu.ar','')
+                if de not in [d for d,h in lablac]:
+                    lablac.append((de, hacia))
+
+            if 'sedlac.econo.unlp.edu.ar' in de:
+                de = de.replace('http://sedlac.econo.unlp.edu.ar','')
+                if de not in [d for d,h in sedlac]:
+                    sedlac.append((de, hacia))
+
+    return cedlas, sedlac, lablac
+
 
 if __name__ == '__main__':
 
@@ -29,5 +49,7 @@ if __name__ == '__main__':
 
     archivo = sys.argv[1]
     redir = sys.argv[2]
-    r = obtener_redirecciones(archivo)
-    escribir_redirecciones(r, redir)
+    cedlas, sedlac, lablac = obtener_redirecciones(archivo)
+    escribir_redirecciones(cedlas, redir + 'c')
+    escribir_redirecciones(sedlac, redir + 's')
+    escribir_redirecciones(lablac, redir + 'l')

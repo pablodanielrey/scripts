@@ -1,0 +1,45 @@
+
+
+  location  {
+          return 301 /wp/estadisticas/sedlac/;
+  }
+
+  location /esp/estadisticas.php {
+          return 301 /wp/estadisticas/sedlac/estadisticas/;
+  }
+
+  location /esp/metodologia.php {
+          return 301 /wp/estadisticas/sedlac/metodologia-sedlac/;
+  }
+
+  location /esp/metodologia_faqs.php {
+          return 301 /wp/estadisticas/sedlac/metodologia-sedlac/;
+  }
+
+  location /esp/institucional.php {
+          return 301 /wp/estadisticas/sedlac/la-base-sedlac/;
+  }
+
+  location /eng/index.php {
+          return 301 /wp/en/estadisticas/sedlac/;
+  }
+
+  location /eng/institutional.php {
+          return 301 /wp/en/estadisticas/sedlac/la-base-sedlac/;
+  }
+
+  location /eng/statistics.php {
+          return 301 /wp/en/estadisticas/sedlac/estadisticas/;
+  }
+
+  location /eng/methodology.php {
+          return 301 /wp/en/estadisticas/sedlac/metodologia-sedlac/;
+  }
+
+  location /eng/methodology_faqs.php {
+          return 301 /wp/en/estadisticas/sedlac/metodologia-sedlac/;
+  }
+
+  location /eng/the-team.php {
+          return 301 /wp/en/estadisticas/sedlac/la-base-sedlac/;
+  }

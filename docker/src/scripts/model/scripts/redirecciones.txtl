@@ -1,0 +1,73 @@
+
+
+  location  {
+          return 301 /wp/estadisticas/lablac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=15 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=13 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=17 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/estadisticas-detalle.php?idE=18 {
+          return 301 /wp/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /esp/institucional.php {
+          return 301 /wp/estadisticas/lablac/la-base-lablac/;
+  }
+
+  location /esp/metodologia.php {
+          return 301 /wp/estadisticas/lablac/metodologia-lablac/;
+  }
+
+  location /esp/metodologia_faqs.php {
+          return 301 /wp/estadisticas/lablac/metodologia-lablac/;
+  }
+
+  location /esp/el-equipo.php {
+          return 301 /wp/estadisticas/lablac/la-base-lablac/;
+  }
+
+  location /eng/index.php {
+          return 301 /wp/en/estadisticas/lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=28 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=32 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=34 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/statistics-detalle.php?idE=35 {
+          return 301 /wp/en/estadisticas/lablac/estadisticas-lablac/;
+  }
+
+  location /eng/methodology.php {
+          return 301 /wp/en/estadisticas/lablac/metodologia-lablac/;
+  }
+
+  location /eng/methodology_faqs.php {
+          return 301 /wp/en/estadisticas/lablac/metodologia-lablac/;
+  }
+
+  location /eng/the-team.php {
+          return 301 /wp/en/estadisticas/lablac/la-base-lablac/;
+  }
+
+  location /eng/institutional.php {
+          return 301 /wp/en/estadisticas/lablac/la-base-lablac/;
+  }
