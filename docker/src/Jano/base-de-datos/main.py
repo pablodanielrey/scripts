@@ -4,8 +4,14 @@ import logging
 import os
 import psycopg2
 import psycopg2.extras
+import uuid
+
 
 if __name__ == '__main__':
+
+    Usuario_1=[{'Nombre': 'Emanuel','Apellido':'Pais', 'DNI':'30000000'}]
+
+
 
     host = os.environ['HOST']
     user = os.environ['USER']
@@ -15,14 +21,15 @@ if __name__ == '__main__':
     try:
         cur = con.cursor()
         try:
-            # for i in range(5):
-            #     cur.execute('insert into usuarios (nombre, clave) values (%s,%s)', ('emagay','puto'))
+            for i in range(5):
+                id=str(uuid.uuid4());
+                cur.execute('insert into usuarios (id, nombre, apellido, dni, creado, modificado, elimado) values (%s,%s,%s,%s)', (id,'Emanuel', 'Pais','30000000'))
 
-            cur.execute('select nombre, clave from usuarios')
-            for row in cur:
-                id = row[0]
-                nombre = row[1]
-                print(id + ' ' + nombre)
+            # cur.execute('select nombre, apellido from usuarios')
+            # for row in cur:
+            #     id = row[0]
+            #     nombre = row[1]
+            #     print(id + ' ' + nombre)
 
         finally:
             cur.close()
