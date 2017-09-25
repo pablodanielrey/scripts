@@ -1,4 +1,3 @@
-
 import sys
 import logging
 import os
@@ -10,7 +9,7 @@ import uuid
 if __name__ == '__main__':
 
     id=str(uuid.uuid4());
-    usuario={'id':id, 'Nombre': 'Emanuel','Apellido':'Pais', 'DNI':'30000000'}
+    # usuario={'id':id, 'Nombre': 'Emanuel','Apellido':'Pais', 'DNI':'30000000'}
 
 
 
@@ -22,11 +21,27 @@ if __name__ == '__main__':
     try:
         cur = con.cursor()
         try:
-            cur.execute('select nombre, apellido from usuarios')
+            # sql = "INSERT INTO correos (id, usuario_id, correo) VALUES ('{}', 'b44a70cb-19fa-4134-923b-fd4d39d13abd', 'paul@econo.unlp.edu.ar' )".format(id)
+            # print(sql)
+            # cur.execute(sql);
+            # con.commit()
             # for row in cur:
             #     id = row[0]
             #     nombre = row[1]
             #     print(id + ' ' + nombre)
+        # except Exception as e:
+        #     print (e)
+
+
+            cur.execute('SELECT * FROM usuarios;')
+            for row in cur:
+                id = row[0]
+                nombre = row[1]
+                apellido = row[2]
+                dni = row[3]
+                print(id + ' ' + nombre)
+
+
 
         finally:
             cur.close()
