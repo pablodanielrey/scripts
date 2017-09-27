@@ -43,8 +43,6 @@ if __name__ == '__main__':
                 dni = row[3]
 
 
-                curcorreo = con.cursor()
-                try:
                     curcorreo.execute("SELECT correo FROM correos WHERE usuario_id = '{}';".format(id))
                     correo = str(curcorreo.fetchone())
                 finally:
