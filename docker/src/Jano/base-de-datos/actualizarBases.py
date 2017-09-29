@@ -11,11 +11,11 @@ if __name__ == '__main__':
     usuariosEcono=[]
     usuarioEcono = {}
 
-    host = os.environ['HOST']
-    user = os.environ['USER']
-    passwd = os.environ['PASS']
-    base = os.environ['BASE']
-    con = psycopg2.connect(host=host, user=user, password=passwd, database=base)
+    hostEcono = os.environ['HOSTE']
+    userEcono = os.environ['USERE']
+    passwdEcono = os.environ['PASSE']
+    baseEcono = os.environ['BASEE']
+    con = psycopg2.connect(host=hostEcono, user=userEcono, password=passwdEcono, database=baseEcono)
 
     def consutarCorreoEcono(id):
         curcorreo.execute("SELECT correo FROM correos WHERE usuario_id = (%s);",(id,))
@@ -57,7 +57,16 @@ if __name__ == '__main__':
             usuarioEcono['CLAVE']=contrasena[0]
             usuariosEcono.append(dict(usuarioEcono))
 
+    hostGoogle = os.environ['HOSTG']
+    userGoogle = os.environ['USERG']
+    passwdGoogle = os.environ['PASSG']
+    baseGoogle = os.environ['BASEG']
+    conGoogle = psycopg2.connect(host=hostGoogle, user=userGoogle, password=passwdGoogle, database=baseGoogle)
 
+    def consultarUsuarioGoogle(usuariosEcono):
+        for usuario in usuariosEcono:
+            print(usuario.items())
+            print ('*************************')
 
     try:
         curcorreo = con.cursor()
@@ -66,11 +75,10 @@ if __name__ == '__main__':
 
         try:
             consultarUsuarioEcono(curcorreo, curclave)
+            consultarUsuarioGoogle(usuariosEcono)
 
         finally:
             curusuario.close()
 
     finally:
         con.close()
-
-print(usuariosEcono)

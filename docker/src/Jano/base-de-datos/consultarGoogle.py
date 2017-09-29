@@ -12,6 +12,8 @@ if __name__ == '__main__':
     user = os.environ['USER']
     passwd = os.environ['PASS']
     base = os.environ['BASE']
+
+    
     con = psycopg2.connect(host=host, user=user, password=passwd, database=base)
     try:
         cur = con.cursor()
