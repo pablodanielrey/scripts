@@ -18,10 +18,10 @@ if __name__ == '__main__':
         try:
             cur.execute('SELECT * FROM usuarios;')
             con.commit()
-            # for row in cur:
-            #     id = row[0]
-            #     nombre = row[1]
-            #     print(id + ' ' + nombre)
+            for row in cur:
+                id = row[0]
+                nombre = row[1]
+                print(id + ' ' + nombre)
             print("Usuarios: ", cur)
         except Exception as e:
             print (e)

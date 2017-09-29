@@ -20,13 +20,14 @@ if __name__ == '__main__':
     def consutarCorreoEcono(id):
         curcorreo.execute("SELECT correo FROM correos WHERE usuario_id = (%s);",(id,))
         correo = str(curcorreo.fetchone())
-        patron = re.finditer(r"\b[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,6}\b", correo)
-        return patron
+        direccion = re.findall(r'[\w\.-]+@[\w\.-]+', correo)
+        return direccion
 
     def consutarClaveEcono(id):
         curclave.execute("SELECT clave FROM claves WHERE usuario_id = (%s);",(id,))
         clave = str(curclave.fetchone())
-        return clave
+        contrasena = re.findall('\w+', clave, re.IGNORECASE)
+        return contrasena
 
     def consultarUsuarioEcono(curcorreo, curclave):
         curusuario.execute('SELECT * FROM usuarios;')
@@ -52,8 +53,8 @@ if __name__ == '__main__':
             usuarioEcono['NOMBRE']=row[1]
             usuarioEcono['APELLIDO']=row[2]
             usuarioEcono['DNI']=row[3]
-            usuarioEcono['CORREO']=direccion
-            usuarioEcono['CLAVE']=contrasena
+            usuarioEcono['CORREO']=direccion[0]
+            usuarioEcono['CLAVE']=contrasena[0]
             usuariosEcono.append(dict(usuarioEcono))
 
 

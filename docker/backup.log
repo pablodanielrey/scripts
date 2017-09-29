@@ -1,0 +1,6 @@
+#1506691323 Disk /dev/sdb - 500 GB / 465 GiB - CHS 60801 255 63
+ 1 : start=     2048, size=   409600, Id=07, *
+ 2 : start=   411648, size=881500160, Id=07, P
+ 3 : start=881911808, size= 63918080, Id=0F, E
+ 5 : start=881913856, size= 63916032, Id=07, L
+ 4 : start=945829888, size= 30943280, Id=12, P
