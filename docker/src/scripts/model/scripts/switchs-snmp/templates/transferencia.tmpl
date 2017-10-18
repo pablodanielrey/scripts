@@ -4,7 +4,7 @@
 </head>
 <body>
   {% for p in puertos %}
-      {{p.boca}} - {{"${:.2f}".format(p.porsegundo)}} Mbit/s - {{ "${:.2f}".format(p.promedio)}} Mbit/s <br>
+      {{p.boca}} - {{"${:.2f}".format(float(p.porsegundo))}} Mbit/s - {{ "${:.2f}".format(float(p.promedio))}} Mbit/s <br>
   {% endfor %}
 </body>
 </html>
