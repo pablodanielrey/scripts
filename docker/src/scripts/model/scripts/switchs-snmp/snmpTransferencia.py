@@ -4,12 +4,12 @@ import sys
 from pysnmp.entity.rfc3413.oneliner import cmdgen
 from jinja2 import Environment, FileSystemLoader
 
-def render_html(puertos):
+def render_html(destino, puertos):
      env = Environment(loader=FileSystemLoader('templates'), trim_blocks=False)
      templ = env.get_template('transferencia.tmpl')
 
      outp = templ.render(puertos=puertos)
-     with open('/tmp/transferencia.html','w') as f:
+     with open(destino,'w') as f:
          f.write(outp)
 
 
@@ -23,6 +23,7 @@ if __name__ == '__main__':
     comunity = sys.argv[1]
     ip = sys.argv[2]
     bocas = int(sys.argv[3])
+    destino = sys.argv[4]
 
 
     for i in range(1,bocas+1):
@@ -55,4 +56,4 @@ if __name__ == '__main__':
                     valores[i]['acumulado'] = valores[i]['acumulado'] + valores[i]['porsegundo']
                     valores[i]['promedio'] = float(valores[i]['acumulado'] / valores[i]['cantidad'])
 
-            render_html(valores)
+            render_html(destino, valores)
