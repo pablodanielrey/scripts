@@ -96,7 +96,7 @@ if __name__ == '__main__':
                         valores[i]['entrada']['anterior'] = v
                         continue
 
-                    valores[i]['entrada']['porsegundo'] = float(v - valores[i]['entrada']['anterior'])
+                    valores[i]['entrada']['porsegundo'] = float(v - valores[i]['entrada']['anterior']) if (v - valores[i]['entrada']['anterior']) > 0 else 0
                     valores[i]['entrada']['anterior'] = v
 
                     valores[i]['entrada']['cantidad'] = valores[i]['entrada']['cantidad'] + 1
@@ -104,10 +104,6 @@ if __name__ == '__main__':
                     valores[i]['entrada']['promedio'] = float(valores[i]['entrada']['acumulado'] / valores[i]['entrada']['cantidad'])
 
                     bytes_total = bytes_total + valores[i]['entrada']['promedio']
-
-                    if bytes_total < 0:
-                        print(valores)
-                        sys.exit(1)
 
 
                 ''' bytes salida '''
@@ -118,12 +114,13 @@ if __name__ == '__main__':
                 )
                 for n, p in varBinds:
                     print(n, p)
+
                     v = (p / 1024 / 1024) * 8
                     if valores[i]['salida']['anterior'] == 0:
                         valores[i]['salida']['anterior'] = v
                         continue
 
-                    valores[i]['salida']['porsegundo'] = float(v - valores[i]['salida']['anterior'])
+                    valores[i]['salida']['porsegundo'] = float(v - valores[i]['salida']['anterior']) if (v - valores[i]['salida']['anterior']) > 0 else 0
                     valores[i]['salida']['anterior'] = v
 
                     valores[i]['salida']['cantidad'] = valores[i]['salida']['cantidad'] + 1
@@ -131,10 +128,6 @@ if __name__ == '__main__':
                     valores[i]['salida']['promedio'] = float(valores[i]['salida']['acumulado'] / valores[i]['salida']['cantidad'])
 
                     bytes_total = bytes_total + valores[i]['salida']['promedio']
-
-                    if bytes_total < 0:
-                        print(valores)
-                        sys.exit(1)
 
 
                 ''' paquetes entrada '''
@@ -149,7 +142,7 @@ if __name__ == '__main__':
                         valores[i]['paquetes_entrada']['anterior'] = v
                         continue
 
-                    valores[i]['paquetes_entrada']['porsegundo'] = float(v - valores[i]['paquetes_entrada']['anterior'])
+                    valores[i]['paquetes_entrada']['porsegundo'] = float(v - valores[i]['paquetes_entrada']['anterior']) if (v - valores[i]['paquetes_entrada']['anterior']) > 0 else 0
                     valores[i]['paquetes_entrada']['anterior'] = v
 
                     valores[i]['paquetes_entrada']['cantidad'] = valores[i]['paquetes_entrada']['cantidad'] + 1
@@ -170,7 +163,7 @@ if __name__ == '__main__':
                         valores[i]['paquetes_salida']['anterior'] = v
                         continue
 
-                    valores[i]['paquetes_salida']['porsegundo'] = float(v - valores[i]['paquetes_salida']['anterior'])
+                    valores[i]['paquetes_salida']['porsegundo'] = float(v - valores[i]['paquetes_salida']['anterior']) if (v - valores[i]['paquetes_salida']['anterior']) > 0 else 0
                     valores[i]['paquetes_salida']['anterior'] = v
 
                     valores[i]['paquetes_salida']['cantidad'] = valores[i]['paquetes_salida']['cantidad'] + 1
@@ -178,6 +171,25 @@ if __name__ == '__main__':
                     valores[i]['paquetes_salida']['promedio'] = float(valores[i]['paquetes_salida']['acumulado'] / valores[i]['paquetes_salida']['cantidad'])
 
                     paquetes_total = paquetes_total + valores[i]['paquetes_salida']['promedio']
+
+
+            for tt in valores:
+                for ttt in tt.values():
+                    if type(ttt) == int:
+                        if ttt < 0:
+                            print(tt)
+                            sys.exit(1)
+                    elif type(ttt) == float:
+                        if ttt < 0:
+                            print(tt)
+                            sys.exit(1)
+                    else:
+                        for tttt in ttt.values():
+                            if type(tttt) != str and tttt < 0:
+                                print(ttt)
+                                print(tttt)
+                                sys.exit(1);
+
 
             estadisticas['bytes_total'] = bytes_total
             estadisticas['paquetes_total'] = paquetes_total
