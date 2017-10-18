@@ -3,8 +3,42 @@
   <meta http-equiv="refresh" content="1">
 </head>
 <body>
+  <table>
+      <tr>
+        <th>Bytes Entrada</th>
+        <th>Bytes Salida</th>
+        <th>Bytes Entrada Promedio</th>
+        <th>Bytes Salida Promedio</th>
+        <th>Paquetes Entrada</th>
+        <th>Paquetes Salida</th>
+        <th>Paquetes Entrada Promedio</th>
+        <th>Paquetes Salida Promedio</th>
+        <th>Paquetes Promedio Total</th>
+      </tr>
+
   {% for p in puertos %}
-      {{p.boca}} - {{"{:.2f}".format(p.porsegundo)}} Mbit/s - {{ "{:.2f}".format(p.promedio)}} Mbit/s <br>
+      <tr>
+        <td>{{p.boca}}</td>
+        <td>{{"{:.2f}".format(p.entrada.porsegundo)}} Mbit/s</td>
+        <td>{{"{:.2f}".format(p.salida.porsegundo)}} Mbit/s</td>
+        <td>{{ "{:.2f}".format(p.entrada.promedio)}} Mbit/s</td>
+        <td>{{ "{:.2f}".format(p.salida.promedio)}} Mbit/s</td>
+        <td>{{ "{:.2f}".format(p.paquetes_entrada.porsegundo)}} Pks/s</td>
+        <td>{{ "{:.2f}".format(p.paquetes_salida.porsegundo)}} Pks/s</td>
+        <td>{{ "{:.2f}".format(p.paquetes_entrada.promedio)}} Pks/s</td>
+        <td>{{ "{:.2f}".format(p.paquetes_salida.promedio)}} Pks/s</td>
+        <td>{{ "{:.2f}".format(p.paquetes_salida.promedio + p.paquetes_entrada.promedio)}} Pks/s</td>
+      </tr>
   {% endfor %}
+
+  </table>
+
+  <table>
+    <tr>
+    <tr><th>Bytes Total</th><th>Paquetes Total</th></tr>
+    <tr><td>{{"{:.2f}".format(estadisticas.bytes_total)}} MBit/s</td><td>{{"{:.2f}".format(estadisticas.paquetes_total / 1024)}} KPks/s</td></tr>
+    </tr>
+  </table>
+
 </body>
 </html>
