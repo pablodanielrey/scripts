@@ -48,11 +48,11 @@ if __name__ == '__main__':
                         valores[i]['anterior'] = v
                         continue
 
-                    valores[i]['porsegundo'] = v - valores[i]['anterior']
+                    valores[i]['porsegundo'] = float(v - valores[i]['anterior'])
                     valores[i]['anterior'] = v
 
                     valores[i]['cantidad'] = valores[i]['cantidad'] + 1
                     valores[i]['acumulado'] = valores[i]['acumulado'] + valores[i]['porsegundo']
-                    valores[i]['promedio'] = valores[i]['acumulado'] / valores[i]['cantidad']
+                    valores[i]['promedio'] = float(valores[i]['acumulado'] / valores[i]['cantidad'])
 
             render_html(valores)
