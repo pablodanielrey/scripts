@@ -2,6 +2,16 @@ import time
 import datetime
 import sys
 from pysnmp.entity.rfc3413.oneliner import cmdgen
+from jinja2 import Environment, FileSystemLoader
+
+def render_html(puertos):
+     env = Environment(loader=FileSystemLoader('templates'), trim_blocks=False)
+     templ = env.get_template('transferencia.tmpl')
+
+     outp = templ.render(puertos=puertos)
+     with open('/tmp/transferencia.html','w') as f:
+         f.write(outp)
+
 
 cmdGen = cmdgen.CommandGenerator()
 
@@ -16,7 +26,7 @@ if __name__ == '__main__':
 
 
     for i in range(1,bocas+1):
-        valores.append({'cantidad':0, 'acumulado':0.0, 'anterior':0, 'porsegundo':.0, 'promedio':.0})
+        valores.append({'boca':i, 'cantidad':0, 'acumulado':0.0, 'anterior':0.0, 'porsegundo':0.0, 'promedio':0.0})
 
     cantidad = 0
     acumulado = 0.0
@@ -45,14 +55,4 @@ if __name__ == '__main__':
                     valores[i]['acumulado'] = valores[i]['acumulado'] + valores[i]['porsegundo']
                     valores[i]['promedio'] = valores[i]['acumulado'] / valores[i]['cantidad']
 
-            with open('/tmp/salida.html','w') as f:
-                f.write("""<html>
-                        <head>
-                          <meta http-equiv="refresh" content="1">
-                        </head>
-                        <body>""")
-
-                for i in range(0,bocas):
-                    f.write("boca {} -- {:.2f}Mbit/s -- {:.2f}Mbit/s<br>".format(i+1, float(valores[i]['porsegundo']), float(valores[i]['promedio'])))
-
-                f.write('</body></html>')
+            render_html(valores)

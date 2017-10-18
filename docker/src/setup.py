@@ -37,7 +37,8 @@ setup(name='scripts',
                             'google-api-python-client',
                             'httplib2',
                             'pyjwt',
-                            'jinja2'],
+                            'jinja2',
+                            'pysnmp'],
           entry_points={
             'console_scripts': [
                 'wamp=scripts.api.wamp.main:main',
