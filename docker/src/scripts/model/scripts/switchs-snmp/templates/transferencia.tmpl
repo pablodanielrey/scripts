@@ -15,6 +15,10 @@
         <!-- <th>Paquetes Entrada Promedio</th> -->
         <!-- <th>Paquetes Salida Promedio</th> -->
         <th>Paquetes Promedio Total</th>
+
+        <th>Errores Entrada Promedio</th>
+        <th>Errores Salida Promedio</th>
+
       </tr>
 
   {% for p in puertos %}
@@ -30,6 +34,11 @@
         <!-- <td>{{ "{:.2f}".format(p.paquetes_entrada.promedio)}} Pks/s</td> -->
         <!-- <td>{{ "{:.2f}".format(p.paquetes_salida.promedio)}} Pks/s</td> -->
         <td>{{ "{:.2f}".format(p.paquetes_salida.promedio + p.paquetes_entrada.promedio)}} Pks/s</td>
+
+        <td>{{ "{:.2f}".format(p.errores_entrada.promedio)}} E/s</td>
+        <td>{{ "{:.2f}".format(p.errores_salida.promedio)}} E/s</td>
+
+
       </tr>
   {% endfor %}
 

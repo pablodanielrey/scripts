@@ -21,6 +21,29 @@ def render_html(destino, estadisticas, puertos):
          f.write(outp)
 
 
+def consultar_y_cargar_error(id, bocas, valores, indice, estadisticas):
+    for i in range(0,bocas):
+        errorIndication, errorStatus, errorIndex, varBinds = cmdGen.getCmd(
+            cmdgen.CommunityData(comunity),
+            cmdgen.UdpTransportTarget((ip, 161)),
+            '{}.{}'.format(id,i+1)
+        )
+        for n, p in varBinds:
+            print(n, p)
+            v = p
+            if valores[i][indice]['anterior'] == 0:
+                valores[i][indice]['anterior'] = v
+                continue
+
+            valores[i][indice]['porsegundo'] = float(v - valores[i][indice]['anterior']) if (v - valores[i][indice]['anterior']) > 0 else 0
+            valores[i][indice]['anterior'] = v
+
+            valores[i][indice]['cantidad'] = valores[i][indice]['cantidad'] + 1
+            valores[i][indice]['acumulado'] = valores[i][indice]['acumulado'] + valores[i][indice]['porsegundo']
+            valores[i][indice]['promedio'] = float(valores[i][indice]['acumulado'] / valores[i][indice]['cantidad'])
+
+            estadisticas['errores_total'] = estadisticas['errores_total'] + valores[i][indice]['promedio']
+
 def consultar_y_cargar_pks(id, bocas, valores, indice, estadisticas):
     for i in range(0,bocas):
         errorIndication, errorStatus, errorIndex, varBinds = cmdGen.getCmd(
@@ -74,7 +97,8 @@ bocas = 16
 valores = []
 estadisticas = {
     'bytes_total': 0.0,
-    'paquetes_total': 0.0
+    'paquetes_total': 0.0,
+    'errores_total': 0.0
 }
 
 
@@ -123,6 +147,13 @@ if __name__ == '__main__':
                     'porsegundo':0.0,
                     'promedio':0.0
                     },
+                'errores_salida': {
+                    'cantidad':0,
+                    'acumulado':0.0,
+                    'anterior':0.0,
+                    'porsegundo':0.0,
+                    'promedio':0.0
+                    }
                 })
 
     cantidad = 0
@@ -137,5 +168,7 @@ if __name__ == '__main__':
             consultar_y_cargar('iso.3.6.1.2.1.2.2.1.16',bocas, valores, 'salida', estadisticas)
             consultar_y_cargar_pks('iso.3.6.1.2.1.2.2.1.11',bocas, valores, 'paquetes_entrada', estadisticas)
             consultar_y_cargar_pks('iso.3.6.1.2.1.2.2.1.17',bocas, valores, 'paquetes_salida', estadisticas)
+            consultar_y_cargar_error('iso.3.6.1.2.1.2.2.1.14',bocas, valores, 'errores_entrada', estadisticas)
+            consultar_y_cargar_error('iso.3.6.1.2.1.2.2.1.20',bocas, valores, 'errores_salida', estadisticas)
 
             render_html(destino, estadisticas, valores)
