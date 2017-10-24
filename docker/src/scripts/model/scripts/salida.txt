@@ -1,0 +1,56 @@
+31936410;Ana Soledad;D'Alessandro;anita_dalessandro@hotmail.com
+31936410;Ana Soledad;D'Alessandro;anita_dalessandro@hotmail.com
+17666212;Silvia Marcela;Aparicio;silvia.aparicio@econo.unlp.edu.ar
+14269060;Oscar;Barraza;oscar.barraza@econo.unlp.edu.ar
+18244958;Gabriel Eduardo;Bigal;No tiene
+18244958;Gabriel Eduardo;Bigal;No tiene
+7828578;Héctor Osvaldo;Cacace;osvaldo.cacace@econo.unlp.edu.ar
+21883421;Gerardo Augusto;Cano;gerardo.cano@econo.unlp.edu.ar
+13423088;Juan Nicolas;Cap;nicolas.cap@econo.unlp.edu.ar
+18432257;Carrizo;Carlos Alberto;carlos.carrizo@econo.unlp.edu.ar
+21120624;Alejandro;Cermele;alejandro.cermele@econo.unlp.edu.ar
+13974277;Nair;Cheylat;nair.cheylat@econo.unlp.edu.ar
+7681993;Gustavo;Collino;gustavo.collino@econo.unlp.edu.ar
+27384790;Paz;Colombo;paz.colombo@econo.unlp.edu.ar
+25628492;Ariel;Cuadrado;ariel.cuadrado@econo.unlp.edu.ar
+12567145;Analia Gladys;Depetris;analia.depetris@econo.unlp.edu.ar
+10357733;Enrique;Fernandezconti;enrique.fernandezconti@econo.unlp.edu.ar
+35017543;Natalia Magalí;Flores;magali.flores@econo.unlp.edu.ar
+13423625;Guillermo Horacio;Fontan;guillermo.fontan@econo.unlp.edu.ar
+5771609;Liliana Cristina;Galan;lgalan@econo.unlp.edu.ar
+13424359;Ruben;Galle;ruben.galle@econo.unlp.edu.ar
+23454309;Marina;Gómez Scavino;marina.gomezscavino@econo.unlp.edu.ar
+18531800;Marcela Edith;Greco;marcela.greco@econo.unlp.edu.ar
+22798528;Angel;Guarracino;angel.guarracino@econo.unlp.edu.ar
+14845679;Luis Adalberto;Güida;GUIDALUIS@HOTMAIL.COM
+17486033;Sergio Aníbal;Gusmerotti;No tiene
+94852116;Juliana;Gutierrez;julianagutierrezb@hotmail.com
+18212431;Pedro César;Iacobucci;pedro.iacobucci@econo.unlp.edu.ar
+25022759;Jose Miguel;Iorio;jose.iorio@econo.unlp.edu.ar
+17291392;Gabriel;Larsen;gabriel.larsen@econo.unlp.edu.ar
+25166165;Juan;Manzano;juan.manzano@econo.unlp.edu.ar
+28129013;Carla;Maroscia;carla.maroscia@econo.unlp.edu.ar
+12686458;Silvia;Miño;silvia.mino@econo.unlp.edu.ar
+29558828;Mitroff;Maximiliano Eric;maximiliano.mitroff@econo.unlp.edu.ar
+27408957;Gabriela;Mollo;gabriela.mollo@econo.unlp.edu.ar
+30448633;Fernando Martín;Morra;fernando.morra@econo.unlp.edu.ar
+18333826; Umberto;Mucelli;umberto.mucelli@econo.unlp.edu.ar
+34818197; Carlos Emiliano;Ocaranza;maworth77@gmail.com
+10949130;Noemi;Olivera;noemi.olivera@econo.unlp.edu.ar
+7374111;Juan Jose;Permuy;No tiene
+5193093;Horacio;Piffano;horacio.piffano@econo.unlp.edu.ar
+20795803;Gustavo Christian;Rodriguez;gustavo.rodriguez@econo.unlp.edu.ar
+33319839;Leandro Ezequiel;Rodriguez;leandro.rodriguez@econo.unlp.edu.ar
+17345534;Patricia.Rovelli;Patricia.Rovelli;patricia.rovelli@econo.unlp.edu.ar
+20046924;Diego Cristian;Sanchez;diego.sanchez@econo.unlp.edu.ar
+13891976;Jorge Horacio;Santi;No tiene
+10584276;Isabel;Semino;isabel.semino@econo.unlp.edu.ar
+30772751;Ramiro ;Taborda;ramiro.taborda@econo.unlp.edu.ar
+10079069;Mirta;Targovnik;mirta.targovnik@econo.unlp.edu.ar
+30281561;Maria Agustina;Tomaghelli;agustina.tomaghelli@econo.unlp.edu.ar
+30728732;Nahuel Andres;Varas;nahuelvaras@hotmail.com
+5193056;Omar;Velasco;omar.velasco@econo.unlp.edu.ar
+21706892;Pedro;Velasco;pedro.velasco@econo.unlp.edu.ar
+22211265;Hernan;Vicente;hernan.vicente@econo.unlp.edu.ar
+16602820;Marcela Alejandra;Videla;marcela.videla@econo.unlp.edu.ar
+14172448;Adrian Gustavo;Zarrilli;adrian.zarrilli@econo.unlp.edu.ar
