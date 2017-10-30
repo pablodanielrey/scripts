@@ -6,6 +6,10 @@ if len(sys.argv) <= 1:
     print("Falta pasar la mac")
     exit(1)
 
+
+#expleaseejemplo = '(?P=<lease>lease ([0-9]+\.)+ \{.*starts(?<inicio>)hardware ethernet(?P=<mac>.*;?).*\})'
+#https://pythex.org/
+
 mac = sys.argv[1]
 expComienzoLease=re.compile('^lease.')
 expFinLease=re.compile('^}')
@@ -31,12 +35,11 @@ def busqueda(lineas):
             procesandoLease=True
             lease={}
             lease['ip']=linea.split()[1]
-            #lease['hardware']=''
         else:
             if expStartsLease.findall(linea.strip()) and procesandoLease:
-                lease['starts']=linea.split()[2]+linea.split()[3]
+                lease['starts']=linea.split()[2]+' '+linea.split()[3]
             if not 'never' in linea and expEndsLease.findall(linea.strip()) and procesandoLease:
-                lease['ends']=linea.split()[2]+linea.split()[3]
+                lease['ends']=linea.split()[2]+' '+linea.split()[3]
             if expHardwareLease.findall(linea.strip()) and procesandoLease:
                 lease['hardware']=linea.split()[2]
             if expFinLease.findall(linea) and procesandoLease:
@@ -65,4 +68,4 @@ if __name__ == "__main__":
         print('Ultima ip: '+coincidencia['ip'])
         print('Direcciones ip asignadas a ese dispositivo: ')
         for coincidencia in leases:
-            print(coincidencia['ip'])
+            print(coincidencia)
