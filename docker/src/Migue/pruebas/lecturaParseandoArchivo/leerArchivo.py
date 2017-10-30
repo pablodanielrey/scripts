@@ -8,7 +8,7 @@ if len(sys.argv) <= 1:
 
 
 #expleaseejemplo = '(?P=<lease>lease ([0-9]+\.)+ \{.*starts(?<inicio>)hardware ethernet(?P=<mac>.*;?).*\})'
-#https://pythex.org/
+#Pagina de test de expresiones regulares https://pythex.org/
 
 mac = sys.argv[1]
 expComienzoLease=re.compile('^lease.')
