@@ -1,10 +1,18 @@
 import re
-
+import sys
 '''El codigo mas feo del universo no mirar'''
 
-expresionComienzoLease=re.compile('^lease.')
-expresionFinLease=re.compile('^}')
-expresionMAC = re.compile('f4:f5:24:8d:8f:06')
+if len(sys.argv) <= 1:
+    print("Falta pasar la mac")
+    exit(1)
+
+mac = sys.argv[1]
+expComienzoLease=re.compile('^lease.')
+expFinLease=re.compile('^}')
+expStartsLease=re.compile('\s*^starts.')
+expEndsLease=re.compile('\s*^ends.')
+expHardwareLease=re.compile('\s*^hardware.')
+expresionMAC = re.compile(mac)
 
 def lectura():
     try:
@@ -14,28 +22,47 @@ def lectura():
         archivo.close()
     return ar
 
-def parseo(lineas):
-    leases=[]
-    lease=[]
+def busqueda(lineas):
+    leasesCoincidentes=[]
+    lease={}
     procesandoLease=False
     for linea in lineas:
-        if expresionComienzoLease.match(linea)!= None and not procesandoLease:
+        if expComienzoLease.match(linea)!= None and not procesandoLease:
             procesandoLease=True
-            lease=[]
-            lease.append(linea)
+            lease={}
+            lease['ip']=linea.split()[1]
+            #lease['hardware']=''
         else:
-            if procesandoLease:
-                lease.append(linea)
-            if expresionFinLease.match(linea) and procesandoLease:
+            if expStartsLease.findall(linea.strip()) and procesandoLease:
+                lease['starts']=linea.split()[2]+linea.split()[3]
+            if not 'never' in linea and expEndsLease.findall(linea.strip()) and procesandoLease:
+                lease['ends']=linea.split()[2]+linea.split()[3]
+            if expHardwareLease.findall(linea.strip()) and procesandoLease:
+                lease['hardware']=linea.split()[2]
+            if expFinLease.findall(linea) and procesandoLease:
+                if 'hardware' in lease and expresionMAC.findall(lease['hardware']):
+                    leasesCoincidentes.append(lease)
                 procesandoLease=False
-                leases.append(lease)
-    return leases
+    return leasesCoincidentes
+
+
+def getIP(lease):
+    return lease[0].split()[1]
 
 if __name__ == "__main__":
     lineas=lectura()
-    print ('La cantidad de lineas son: %d' %len(lineas))
-    leases=parseo(lineas)
-    print('La Cantidad de Leases es de: %d' %len(leases))
-    for ocurrencia in leases:
-        if expresionMAC.findall(str(ocurrencia)):
-            print(ocurrencia[0])
+    leases=busqueda(lineas)
+    if len(leases) == 0:
+        print('No esta')
+    else:
+        reciente=''
+        ultimoLease=[]
+        for coincidencia in leases:
+            if coincidencia['starts']>reciente:
+                reciente=coincidencia['starts']
+                ultimoLease=coincidencia
+        #print(getIP(ultimoLease))
+        print('Ultima ip: '+coincidencia['ip'])
+        print('Direcciones ip asignadas a ese dispositivo: ')
+        for coincidencia in leases:
+            print(coincidencia['ip'])
