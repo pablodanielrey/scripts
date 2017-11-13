@@ -18,9 +18,12 @@ if __name__ == '__main__':
     try:
         cur = con.cursor()
         try:
-            with open(arch, 'r') as f, open('/tmp/proceso.csv','w') as f2:
-                ingreso = csv.reader(f, delimiter=',')
-                for apellido, nombre, dni, algo, algo, algo in ingreso:
+            with open(arch, 'r') as f, open('proceso.csv','w') as f2:
+                ingreso = csv.reader(f, delimiter=';')
+                for fila in ingreso:
+                    apellido = fila[1].split(',')[0]
+                    nombre = fila[1].split(',')[1]
+                    dni = fila[2]
                     d = dni.lower().replace('pas','').replace('dni','').replace('ci','').replace('dnt','').strip()
                     if len(d) > 7:
                         d = d.upper()
