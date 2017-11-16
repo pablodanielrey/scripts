@@ -9,6 +9,7 @@ import psycopg2.extras
 if __name__ == '__main__':
 
     arch = sys.argv[1]
+    salida = '{}_proceso.csv'.format(arch.replace('.','_'))
     host = os.environ['HOST']
     user = os.environ['USER']
     passwd = os.environ['PASS']
@@ -18,7 +19,7 @@ if __name__ == '__main__':
     try:
         cur = con.cursor()
         try:
-            with open(arch, 'r') as f, open('proceso.csv','w') as f2:
+            with open(arch, 'r') as f, open(salida,'w') as f2:
                 ingreso = csv.reader(f, delimiter=';')
                 for fila in ingreso:
                     apellido = fila[1].split(',')[0]
