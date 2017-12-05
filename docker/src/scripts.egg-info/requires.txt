@@ -7,6 +7,7 @@ flask_jsontools
 Flask-OIDC
 SQLAlchemy
 google-api-python-client
+google-auth
 httplib2
 pyjwt
 jinja2
