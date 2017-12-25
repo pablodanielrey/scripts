@@ -1,10 +1,11 @@
 FROM python:3.6.2-stretch
 
 RUN apt-get update && apt-get install -y \
+  sudo \
   postgresql-server-dev-all \
-  supervisor \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  supervisor
+#  && apt-get clean \
+#  && rm -rf /var/lib/apt/lists/*
 
 ENV TZ=America/Argentina/Buenos_Aires
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -35,6 +36,45 @@ RUN mkdir -p /opt/yarn \
   && ln -s /opt/yarn/bin/yarn /usr/local/bin/yarnpkg
 
 ##################
+
+### ahora se instala android studio. se debe dejar el sdk en android/android-studio.zip
+
+COPY stretch.conf.list /etc/apt/sources.list.d/
+RUN apt-get install -y \
+	lib32stdc++6 \
+	unzip \
+	openjdk-8-jdk
+
+COPY android/android-studio.zip /opt/
+RUN cd /opt/ && unzip android-studio.zip && rm android-studio.zip
+
+
+#RUN apt-get install -y x11-apps \
+#	libc6:i386 \
+#	libncurses5:i386 \
+#	libstdc++6:i386 \
+#	lib32z1 \
+#	libbz2-1.0:i386 \
+#	openjdk-8-jdk
+# && apt-get clean \
+#  && rm -rf /var/lib/apt/lists/*
+
+
+RUN echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
+    && useradd -u 1000 -G sudo -d /home/developer --shell /bin/bash -m developer \
+    && echo "secret\nsecret" | passwd developer
+RUN chown -R 1000:1000 /opt/android-studio
+
+#RUN export uid=1000 gid=1000 && \
+#    mkdir -p /home/developer && \
+#    echo "developer:x:${uid}:${gid}:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd && \
+#    echo "developer:x:${uid}:" >> /etc/group && \
+#    echo "developer ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/developer && \
+#    chmod 0440 /etc/sudoers.d/developer && \
+#    chown ${uid}:${gid} -R /home/developer
+
+
+USER developer
 
 #COPY src /src
 WORKDIR /src
