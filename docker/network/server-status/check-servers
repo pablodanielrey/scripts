@@ -1,0 +1,35 @@
+
+#!/bin/bash
+
+WORKSPACE=
+LISTFILE=services-list
+
+VERDE='\033[0;32m'
+ROJO='\033[0;31m'
+AMARILLO='\033[1;33m'
+FIN='\033[0m'
+
+TOTAL=0
+CAIDOS=0
+
+function test {
+  ping -c1 $1 &>/dev/null
+  if [ $? -eq 0 ] ; then
+    echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${VERDE}"\t\tOK"${FIN}
+  else
+    echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${ROJO}"\t\tOFFLINE"${FIN}
+	  CAIDOS=$((CAIDOS+1))
+  fi
+}
+
+echo -e ${VERDE}"-----------------------Test de servidores---------------------"${FIN}
+echo -e ${VERDE}"--------------Servidor-----------------------Estado-----------"${FIN}
+while read p; do
+  test $p
+        TOTAL=$((TOTAL+1))
+done < $LISTFILE
+
+echo -e ${VERDE}"---------------------------ESTADISTICAS------------------------"${FIN}
+echo "Servidores:" $TOTAL
+echo -e ${VERDE}CON RESPUESTA${FIN}":" $(($TOTAL - $CAIDOS))
+echo -e ${ROJO}SIN RESPUESTA${FIN}":" $CAIDOS
