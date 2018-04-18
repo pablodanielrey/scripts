@@ -19,10 +19,20 @@ function test {
   elif [ $response -ge 300 ] && [ $response -lt 400 ] ; then
     echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${AMARILLO}"\t\tREDIRECCION"${AMARILLO} $response${FIN}
   elif [ $response -ge 400 ] && [ $response -lt 500 ] ; then
-    echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${ROJO}"\t\tOFFLINE"${AMARILLO} $response${FIN}
+    ping -c1 $1 &>/dev/null
+    if [ $? -eq 0 ] ; then
+      echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${ROJO}"\t\tOFFLINE"${AMARILLO} "--->" $response ${VERDE}"PING OK"${FIN}
+    else
+      echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${ROJO}"\t\tOFFLINE"${AMARILLO} "--->" $response ${ROJO}"PING NO"${FIN}
+    fi
 	  CAIDOS=$((CAIDOS+1))
   elif [ $response -ge 500 ] && [ $response -lt 600 ] ; then
-    echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${ROJO}"\t\tOFFLINE - SERVER ERROR"${AMARILLO} $response${FIN}
+    ping -c1 $1 &>/dev/null
+    if [ $? -eq 0 ] ; then
+      echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${ROJO}"\t\tOFFLINE - SERVER ERROR"${AMARILLO} "--->" $response ${VERDE}"PING OK"${FIN}
+    else
+      echo -e $1 $AMARILLO " ---> "$(dig +short $1 | grep -Eo '[0-9\.]{7,15}' | head -1)${ROJO}"\t\tOFFLINE - SERVER ERROR"${AMARILLO} $response${FIN} "--->" $response ${ROJO}"PING NO"${FIN}
+    fi
 	  CAIDOS=$((CAIDOS+1))
   fi
 }
